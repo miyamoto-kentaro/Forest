@@ -1,0 +1,182 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block navbar %}
+<nav class="navbar navbar-expand-lg navbar-light alert-success">
+    <!-- <div class="basic-nav" style="display:inline-block"> -->
+
+    <img src="static/img/Forest-icon2.png" width="170" height="90">
+
+    <h1>
+        <a class="navbar-brand menu" href="/">MENU</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </h1>
+
+    <h2>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active" style='margin: 100;'>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#shopModel">
+                        shop
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="shopModel" tabindex="-1" role="dialog" aria-labelledby="shopModelLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="shopModelLabel">Now Developing</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    You can shop here
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item active" style='margin: 0,10,0,10;'>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#lnquiryModel">
+                        lnquiry
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="lnquiryModel" tabindex="-1" role="dialog"
+                        aria-labelledby="lnquiryModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="lnquiryModalLabel">Now Developing</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Inquiry screen
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </li>
+                <li class="nav-item active" style='margin: 0,10,0,10;'>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#informationModal">
+                        information
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="informationModal" tabindex="-1" role="dialog"
+                        aria-labelledby="informationModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="informationModalLabel">Now Developing</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    some information
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </li>
+                <li class="nav-item active" style='margin: 0,10,0,10;'>
+                    <button type="button" class="btn btn-primary"
+                        onclick='location.href="https://www.who.int/health-topics/sustainable-development-goals#tab=tab_1"'
+                        data-target="#exampleModal">
+                        Link
+                    </button>
+                </li>
+            </ul>
+    </h2>
+
+    <form action="/product_list" class="form-inline my-2 my-lg-0" method="POST">
+        <input class="form-control mr-sm-2" type="search" name="product_name" placeholder="Search" aria-label="Search"
+            style="width: 300px;">
+        <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
+    </form>
+    <!-- </div> -->
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="bg-image position-static" style="background-image: url(static/img/background.png);
+    height: 100vh;
+">
+    {% for product in products %}
+    <div class="container p-4  ">
+        <div class="row bg-light border border-dark rounded shadow-lg">
+            <div class="col-12 col-sm-3 border">
+                <img class="mx-auto d-block" src="static/img/Forest-icon.png" width="120" height="120 alt=" sample
+                    product">
+
+            </div>
+            <div class="col-12 col-sm-6 border">
+                {{product.name}}
+                <div class="row">
+                    <div class="col-6 border">PRICE
+                        <br> ${{product.price}}
+                    </div>
+                    <div class="col-6 border">RATING
+                        <br>
+                        <div class="progress">
+                            <div class="progress-bar bg-warning progress-bar-striped" style="width:50%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% if product.seller_url %}
+            <a href="{{product.seller_url}}" class="col-12 col-sm-3  border">OVERVIEW</a>
+            {% else %}
+            <a href="#" class="col-12 col-sm-3  border">OVERVIEW</a>
+
+            {% endif %}
+
+        </div>
+    </div>
+    {% endfor %}
+    <!-- <div class="container p-4  ">
+        <div class="row bg-light border border-dark rounded shadow-lg">
+            <div class="col-12 col-sm-3 border">
+                <img class="mx-auto d-block" src="static/img/Forest-icon.png" width="120" height="120 alt=" sample
+                    product">
+
+            </div>
+            <div class="col-12 col-sm-6 border">
+                PRODUCT NAME
+                <div class="row">
+                    <div class="col-6 border">PRICE
+                        <br> $000
+                    </div>
+                    <div class="col-6 border">RATING
+                        <br>
+                        <div class="progress">
+                            <div class="progress-bar bg-warning progress-bar-striped" style="width:50%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-3  border">OVERVIEW</div>
+        </div>
+    </div> -->
+    {% endblock %}
